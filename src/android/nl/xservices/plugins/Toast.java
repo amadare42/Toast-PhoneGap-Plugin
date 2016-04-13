@@ -94,6 +94,8 @@ public class Toast extends CordovaPlugin {
             final int cornerRadius = styling.optInt("cornerRadius", 100);
             final int horizontalPadding = styling.optInt("horizontalPadding", 50);
             final int verticalPadding = styling.optInt("verticalPadding", 30);
+            final int shadowRadius = styling.optInt("androidTextShadowRadius", -1);
+            final String shadowColor = styling.optString("androidTextShadowColor", "#000000");
 
             GradientDrawable shape = new GradientDrawable();
             shape.setCornerRadius(cornerRadius);
@@ -104,6 +106,10 @@ public class Toast extends CordovaPlugin {
             final TextView toastTextView;
             toastTextView = (TextView) toast.getView().findViewById(android.R.id.message);
             toastTextView.setTextColor(Color.parseColor(textColor));
+
+            if (shadowRadius != -1){
+              toastTextView.setShadowLayer(shadowRadius, 1.2f, 1.2f, Color.parseColor(shadowColor));
+            }
 
             toast.getView().setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
 
